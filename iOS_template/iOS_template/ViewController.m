@@ -15,30 +15,97 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
+- (id)init
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
 }
 
+
+- (void)loadView{
+    [super loadView];
+	// Do any additional setup after loading the view, typically from a nib.
+    // start monitoring device orientation changes.
+    //背景色の設定
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"メインメニュー";
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(didRotate:)
+     name:UIDeviceOrientationDidChangeNotification
+     object:nil];
+}
+
+- (void) didRotate:(NSNotification *)notification {
+    UIDeviceOrientation orientation = [[notification object] orientation];
+    
+    if (orientation == UIDeviceOrientationPortrait) {
+        NSLog(@"device orientation is Portrait.");
+        [self buttonCreate];
+    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+        NSLog(@"device orientation is UpsideDown.");
+        [self buttonCreate];
+    } else if (orientation == UIDeviceOrientationLandscapeLeft) {
+        NSLog(@"device orientation is LandscapeLeft");
+        [self buttonCreate];
+    } else if (orientation == UIDeviceOrientationLandscapeRight) {
+       NSLog(@"device orientation is LandscapeRight");
+        [self buttonCreate];
+    } else {
+    
+    }
+}
+
+
+/*
 - (void)loadView{
     [super loadView];
     
     //背景色の設定
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    UIButton *btn =  [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake((self.view.frame.size.width - 100) / 2 , (self.view.frame.size.height - 30) / 2 , 100, 30);
-    [btn setTitle:@"ボタン" forState:UIControlStateNormal];
+    _btn =  [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _btn.frame = CGRectMake((self.view.frame.size.width - 100) / 2 , (self.view.frame.size.height - 30) / 2 , 100, 30);
+    [_btn setTitle:@"ボタン" forState:UIControlStateNormal];
     
-    [btn addTarget:self action:@selector(button_Tapped:)forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
+    [_btn addTarget:self action:@selector(button_Tapped:)forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_btn];
 
+}*/
+
+
+// 画面が回転しようとする時に呼ばれる
+/*
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+                                        duration:(NSTimeInterval)duration {
+    
+    [self printOrientation:interfaceOrientation];
 }
 
+- (void)printOrientation:(UIInterfaceOrientation)orientation{
+    
+}*/
+
+- (void)buttonCreate{
+    [_btn removeFromSuperview];
+    _btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _btn.frame = CGRectMake((self.view.frame.size.width - 100) / 2 , (self.view.frame.size.height - 30) / 2 , 100, 30);
+    [_btn setTitle:@"ボタン" forState:UIControlStateNormal];
+    [_btn addTarget:self action:@selector(button_Tapped:)forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_btn];
+}
+
+
+
 - (void)button_Tapped:(id)sender{
-    SecondViewController *vewController = [[SecondViewController alloc] init];
-    [self.navigationController pushViewController:vewController animated:YES];
+    SecondViewController *viewController = [[SecondViewController alloc] init];
+    viewController.width = self.view.frame.size.width;
+    viewController.height = self.view.frame.size.height;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 - (void)didReceiveMemoryWarning
 {
