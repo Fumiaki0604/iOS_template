@@ -16,7 +16,6 @@
     
     self.viewController = [[ViewController alloc]init];
     self.naviController = [[UINavigationController alloc]initWithRootViewController:self.viewController];
-    
     self.window.rootViewController = self.naviController;
     [self.window addSubview:_naviController.view];
     

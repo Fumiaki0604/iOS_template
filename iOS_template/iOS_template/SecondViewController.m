@@ -12,7 +12,9 @@
 
 @end
 
-@implementation SecondViewController
+@implementation SecondViewController{
+    float layoutSpace;
+}
 @synthesize width;
 @synthesize height;
 
@@ -30,12 +32,12 @@
     //背景色の設定
     self.view.backgroundColor = [UIColor whiteColor];
 	// Do any additional setup after loading the view.
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    /*[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(didRotate:)
      name:UIDeviceOrientationDidChangeNotification
-     object:nil];
+     object:nil];*/
 }
 
 - (void) didRotate:(NSNotification *)notification {
@@ -67,7 +69,7 @@
     
     //背景色の設定
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.title = @"サブメニュー";
     [self instanceBtn];
     
     [self myWidth:width myHeight:height];
@@ -77,6 +79,38 @@
     
 }
 
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+                                        duration:(NSTimeInterval)duration {
+    
+    [self printOrientation:interfaceOrientation];
+}
+
+- (void)printOrientation:(UIInterfaceOrientation)orientation{
+    NSLog(@"画面2横サイズnew%f",self.view.frame.size.width);
+    if (orientation == UIDeviceOrientationPortrait) {
+        NSLog(@"device orientation is Portrait.");
+        [self buttonCreate];
+        [self toolbarWidth:self.view.frame.size.width toolbarHeight:self.view.frame.size.height];
+    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+        NSLog(@"device orientation is UpsideDown.");
+        [self buttonCreate];
+        [self toolbarWidth:self.view.frame.size.width toolbarHeight:self.view.frame.size.height];
+    } else if (orientation == UIDeviceOrientationLandscapeLeft) {
+        NSLog(@"device orientation is LandscapeLeft");
+        [self buttonCreate];
+        [self toolbarWidth:self.view.frame.size.width toolbarHeight:self.view.frame.size.height];
+    } else if (orientation == UIDeviceOrientationLandscapeRight) {
+        NSLog(@"device orientation is LandscapeRight");
+        [self buttonCreate];
+        [self toolbarWidth:self.view.frame.size.width toolbarHeight:self.view.frame.size.height];
+    } else {
+        
+    }
+    
+}
+
+
+
 - (void)buttonCreate{
     [_leftUpbtn removeFromSuperview];
     [_leftDwnbtn removeFromSuperview];
@@ -85,9 +119,7 @@
     [_bottomToolBar removeFromSuperview];
     
     [self instanceBtn];
-    
     [self myWidth:self.view.frame.size.width myHeight:self.view.frame.size.height];
-    
     [self addBtn];
 }
 
@@ -99,12 +131,21 @@
 }
 
 -(void)myWidth:(int)f_width myHeight:(int)f_height{
-    
-    _leftUpbtn.frame = CGRectMake(10 , 60, 100, 30);
+    layoutSpace = self.navigationController.navigationBar.bounds.size.height;
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        NSLog(@"ios6");
+        layoutSpace = 0.0f;
+    }
+    else{
+        NSLog(@"ios7");
+        layoutSpace = self.navigationController.navigationBar.bounds.size.height;
+    }
+    NSLog(@"ナビ%f",self.navigationController.navigationBar.bounds.size.height);
+    _leftUpbtn.frame = CGRectMake(10 , 60 + layoutSpace, 100, 30);
     [_leftUpbtn setTitle:@"左上ボタン" forState:UIControlStateNormal];
     _leftDwnbtn.frame = CGRectMake(10 , f_height -120 , 100, 30);
     [_leftDwnbtn setTitle:@"左下ボタン" forState:UIControlStateNormal];
-    _rightUpbtn.frame = CGRectMake(f_width - 120 , 60, 100, 30);
+    _rightUpbtn.frame = CGRectMake(f_width - 120 , 60 + layoutSpace, 100, 30);
     [_rightUpbtn setTitle:@"右上ボタン" forState:UIControlStateNormal];
     _rightDwnbtn.frame = CGRectMake( f_width - 120, f_height -120, 100, 30);
     [_rightDwnbtn setTitle:@"右下ボタン" forState:UIControlStateNormal];
