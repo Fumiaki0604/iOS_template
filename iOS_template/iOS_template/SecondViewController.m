@@ -39,11 +39,7 @@
      name:UIDeviceOrientationDidChangeNotification
      object:nil];*/
 }
-<<<<<<< HEAD
 /*
-=======
-
->>>>>>> 984e01aaefa06bb67c349ab17faff66a96005a13
 - (void) didRotate:(NSNotification *)notification {
     UIDeviceOrientation orientation = [[notification object] orientation];
     
@@ -66,11 +62,8 @@
     } else {
         
     }
-<<<<<<< HEAD
 }*/
-=======
-}
->>>>>>> 984e01aaefa06bb67c349ab17faff66a96005a13
+
 
 - (void)loadView{
     [super loadView];
@@ -94,11 +87,6 @@
 }
 
 - (void)printOrientation:(UIInterfaceOrientation)orientation{
-<<<<<<< HEAD
-    
-=======
-    NSLog(@"画面2横サイズnew%f",self.view.frame.size.width);
->>>>>>> 984e01aaefa06bb67c349ab17faff66a96005a13
     if (orientation == UIDeviceOrientationPortrait) {
         NSLog(@"device orientation is Portrait.");
         [self buttonCreate];
@@ -143,10 +131,6 @@
 }
 
 -(void)myWidth:(int)f_width myHeight:(int)f_height{
-<<<<<<< HEAD
-=======
-    layoutSpace = self.navigationController.navigationBar.bounds.size.height;
->>>>>>> 984e01aaefa06bb67c349ab17faff66a96005a13
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         NSLog(@"ios6");
         layoutSpace = 0.0f;
@@ -155,10 +139,6 @@
         NSLog(@"ios7");
         layoutSpace = self.navigationController.navigationBar.bounds.size.height;
     }
-<<<<<<< HEAD
-=======
-    NSLog(@"ナビ%f",self.navigationController.navigationBar.bounds.size.height);
->>>>>>> 984e01aaefa06bb67c349ab17faff66a96005a13
     _leftUpbtn.frame = CGRectMake(10 , 60 + layoutSpace, 100, 30);
     [_leftUpbtn setTitle:@"左上ボタン" forState:UIControlStateNormal];
     _leftDwnbtn.frame = CGRectMake(10 , f_height -120 , 100, 30);

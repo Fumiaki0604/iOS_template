@@ -40,11 +40,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UIBarButtonItem *back_button = [[UIBarButtonItem alloc] initWithTitle:@"戻る" style:UIBarButtonItemStyleDone target:nil action:nil];
     self.navigationItem.backBarButtonItem = back_button;
-<<<<<<< HEAD
+
     //[self buttonCreate];
-=======
-    [self buttonCreate];
->>>>>>> 984e01aaefa06bb67c349ab17faff66a96005a13
    /*[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter]
      addObserver:self
